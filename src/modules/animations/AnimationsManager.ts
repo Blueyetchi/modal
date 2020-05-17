@@ -21,7 +21,6 @@ export default class AnimationsManager implements IAnimationsManager{
         this._animations[animationName] = animation;
     }
 
-
     /* Trigger animation which has the name passed in parameter */
     public trigger(animationName: string, data: DataAnimationFunction): void {
         if (this._animations.hasOwnProperty(animationName)) {

@@ -29,7 +29,9 @@ export default class Modal implements IModal{
     public open(): void {
         if (!this._isInjected) {
             this._injectInDom();
-            this._triggerOpenAnimation();
+            requestAnimationFrame(() => {
+                this._triggerOpenAnimation();
+            });
             this._isInjected = true;
         }
     }
@@ -55,8 +57,6 @@ export default class Modal implements IModal{
 //----------------------------------------------------------------------
     private _injectInDom(): void {
         const parentHtml = this._templateManager.getHtmlParent();
-        console.log(parentHtml);
-        console.log(this._templateManager.getHtmlTemplate());
         parentHtml.appendChild(this._templateManager.getHtmlTemplate());
     }
 

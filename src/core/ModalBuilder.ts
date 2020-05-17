@@ -19,8 +19,8 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
 //----------------------------------------------------------------------
 
     public build(): IModal {
-        this._setAnimations();
-        this._setTemplate();
+        this._setAnimationsManager();
+        this._setTemplateManager();
 
         return this._implicitClass;
     }
@@ -28,15 +28,26 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
 //----------------------------------------------------------------------
 // Private methods
 //----------------------------------------------------------------------
-    private _setAnimations(): void {
+    private _setAnimationsManager(): void {
         /* For the moment, we don't need to retrieve AnimationsManager through a builder because
            the class is not complex (yet) */
         const animationsManager = new AnimationsManager();
         this._implicitClass.setAnimationsManager(animationsManager);
+        this._setDefaultAnimation();
     }
 
-    private _setTemplate(): void {
+    private _setTemplateManager(): void {
         const templateManager = new TemplateManager();
         this._implicitClass.setTemplateManager(templateManager);
+    }
+
+    private _setDefaultAnimation(): void {
+        this._implicitClass.getAnimationsManager().register('open', function (data) {
+            data.modal.classList.add('is-open');
+        });
+
+        this._implicitClass.getAnimationsManager().register('close', function (data) {
+            data.modal.classList.remove('is-open');
+        });
     }
 }
