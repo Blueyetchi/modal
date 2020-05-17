@@ -13,11 +13,12 @@ export default class AnimationsManager implements IAnimationsManager{
 //----------------------------------------------------------------------
 // Public methods
 //----------------------------------------------------------------------
+    public has(animationName: string): boolean {
+        return !!this._animations[animationName];
+    }
+
     /* Register a new animation */
     public register(animationName: string, animation: AnimationFunction): void {
-        if (this._animations.hasOwnProperty(animationName)) {
-            throw new Error(`The animation ${animationName} can't be registered because it already exists`);
-        }
         this._animations[animationName] = animation;
     }
 

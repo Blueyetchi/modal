@@ -18,6 +18,9 @@ export default class TemplateManager implements ITemplateManager{
     /* Data injected on the content of the template */
     private _data: object = {};
 
+    /* Html button close of the template */
+    private _htmlButtonClose: HTMLElement;
+
     /* HTML Element of the template */
     private _htmlContent: HTMLElement;
 
@@ -27,24 +30,36 @@ export default class TemplateManager implements ITemplateManager{
     /* Html tag of the template */
     private _tagName: string = 'div';
 
-
     /* Class of the template's wrapper */
     private _wrapperClassName: string = 'by-modal-wrapper';
 
+    /* Class added to the modal when it is opened */
+    private _openClassName: string = 'is-open';
+
 
     constructor() {
-        this._htmlContent = this._createHtmlContent()
+        /* _htmlButtonClose method needs to be called before _htmlContent one because it use this._htmlButtonClose */
+        this._htmlButtonClose = this._createHtmlCloseButton();
+        this._htmlContent = this._createHtmlContent();
     }
 
 //----------------------------------------------------------------------
 // Public methods
 //----------------------------------------------------------------------
+    public addOpenClass(): void {
+        this._htmlContent.classList.add(this._openClassName);
+    }
+
     public getButtonCloseClassName(): string {
         return this._closeButtonClassName;
     }
 
     public getClassName(): string {
         return this._className;
+    }
+
+    public getHtmlButtonCLose(): HTMLElement {
+        return this._htmlButtonClose;
     }
 
     public getHtmlTemplate(): HTMLElement {
@@ -59,6 +74,10 @@ export default class TemplateManager implements ITemplateManager{
         this._initializer(options);
     }
 
+    public removeOpenClass(): void {
+        this._htmlContent.classList.remove(this._openClassName);
+    }
+
 //----------------------------------------------------------------------
 // Private methods
 //----------------------------------------------------------------------
@@ -67,6 +86,7 @@ export default class TemplateManager implements ITemplateManager{
         closeButtonClassName,
         content,
         data,
+        openClassName,
         parentTagName,
         tagName,
         wrapperClassName
@@ -83,6 +103,9 @@ export default class TemplateManager implements ITemplateManager{
         if (data) {
             this._data = data;
         }
+        if (openClassName) {
+            this._openClassName = openClassName;
+        }
         if (parentTagName) {
             this._parentTagName = parentTagName;
         }
@@ -90,10 +113,10 @@ export default class TemplateManager implements ITemplateManager{
             this._tagName = tagName;
         }
         if (wrapperClassName) {
-            console.log('wrapperClassName has been override');
             this._wrapperClassName = wrapperClassName;
         }
 
+        this._htmlButtonClose = this._createHtmlCloseButton();
         this._htmlContent = this._createHtmlContent();
     }
 
@@ -111,9 +134,8 @@ export default class TemplateManager implements ITemplateManager{
         let modalHtml = document.createElement('div');
         modalHtml.classList.add(this._className);
         let wrapper = this._createHtmlWrapper();
-        let closeButton = this._createHtmlCloseButton();
 
-        modalHtml.appendChild(closeButton);
+        modalHtml.appendChild(this._htmlButtonClose);
         modalHtml.appendChild(wrapper);
 
         return modalHtml;

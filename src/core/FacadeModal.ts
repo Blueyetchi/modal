@@ -1,6 +1,8 @@
 import {IFacadeModal, IModal, IModalBuilder} from "./defs";
 import {AnimationsOptionsSetup} from "../modules/animations/typings";
 import {TemplateManagerOptionsConstructor} from "../modules/template/typings";
+import {ModalBuilder} from "./index";
+import Modal from "./Modal";
 
 export default class FacadeModal implements IFacadeModal{
 //----------------------------------------------------------------------
@@ -8,8 +10,8 @@ export default class FacadeModal implements IFacadeModal{
 //----------------------------------------------------------------------
     private _modal!: IModal;
 
-    constructor(modal: IModal) {
-        this._modal = modal;
+    constructor() {
+        this._modal = new ModalBuilder(new Modal()).build();
     }
 
 //----------------------------------------------------------------------
@@ -37,8 +39,21 @@ export default class FacadeModal implements IFacadeModal{
         return this._modal.getTemplateManager().getClassName();
     }
 
+    public close(): void {
+        this._modal.close();
+    }
+
     public htmlContent(): HTMLElement {
         return this._modal.getTemplateManager().getHtmlTemplate();
+    }
+
+    public init(): this {
+        /* Register all event listener */
+        this._registerAllEventListeners();
+        /* Init all event listeners */
+        this._modal.getEventListenersManager().initAllEventListeners();
+
+        return this;
     }
 
     public template(options: TemplateManagerOptionsConstructor): this {
@@ -47,11 +62,18 @@ export default class FacadeModal implements IFacadeModal{
         return this;
     }
 
-    public close(): void {
-        this._modal.close();
-    }
-
     public open(): void {
         this._modal.open();
+    }
+
+    private _registerAllEventListeners(): void {
+        /* Register onClickButtonClose eventListener */
+        this._modal.getEventListenersManager().register('onClickButtonClose', () => {
+            let htmlButtonCLose = this._modal.getTemplateManager().getHtmlButtonCLose();
+
+            htmlButtonCLose.addEventListener('click', () => {
+                this._modal.close();
+            })
+        })
     }
 }

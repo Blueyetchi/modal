@@ -2,6 +2,7 @@ import {Builder} from "./abstracts";
 import {IModal, IModalBuilder} from "./defs";
 import {AnimationsManager} from "../modules/animations";
 import {TemplateManager} from "../modules/template";
+import {EventListenerManager} from "../modules/eventListeners";
 
 /**
  * This class build the Modal given in parameter to the FacadeModal
@@ -25,7 +26,9 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
 
     public build(): IModal {
         this._setAnimationsManager();
+        //this._setDefaultAnimations();
         this._setTemplateManager();
+        this._setEventListenersManager();
 
         return this._implicitClass;
     }
@@ -38,7 +41,6 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
            the class is not complex (yet) */
         const animationsManager = new AnimationsManager();
         this._implicitClass.setAnimationsManager(animationsManager);
-        this._setDefaultAnimation();
     }
 
     private _setTemplateManager(): void {
@@ -46,7 +48,12 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
         this._implicitClass.setTemplateManager(templateManager);
     }
 
-    private _setDefaultAnimation(): void {
+    private _setEventListenersManager(): void {
+        const eventListenersManager = new EventListenerManager();
+        this._implicitClass.setEventListenersManager(eventListenersManager);
+    }
+
+    /*private _setDefaultAnimations(): void {
         this._implicitClass.getAnimationsManager().register('open', function (data) {
             data.modal.classList.add('is-open');
         });
@@ -54,5 +61,5 @@ export default class ModalBuilder extends Builder implements IModalBuilder {
         this._implicitClass.getAnimationsManager().register('close', function (data) {
             data.modal.classList.remove('is-open');
         });
-    }
+    }*/
 }

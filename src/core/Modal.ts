@@ -1,6 +1,7 @@
 import {IModal} from "./defs";
 import {ITemplateManager} from "../modules/template/defs";
 import {IAnimationsManager} from "../modules/animations/defs";
+import {IEventListenersManager} from "../modules/eventListeners/defs";
 
 export default class Modal implements IModal{
 
@@ -9,6 +10,7 @@ export default class Modal implements IModal{
 //----------------------------------------------------------------------
     private _templateManager: ITemplateManager;
     private _animationsManager: IAnimationsManager;
+    private _eventListenersManager: IEventListenersManager;
     private _isInjected: boolean;
 
     constructor() {
@@ -20,24 +22,35 @@ export default class Modal implements IModal{
 //----------------------------------------------------------------------
     public close(): void {
         if (this._isInjected) {
+            this._isInjected = false;
             this._triggerCloseAnimation();
             this._removeFromDom();
-            this._isInjected = false;
         }
     }
 
     public open(): void {
         if (!this._isInjected) {
-            this._injectInDom();
-            requestAnimationFrame(() => {
-                this._triggerOpenAnimation();
-            });
             this._isInjected = true;
+            this._injectInDom();
+
+            /* Trigger animation if set by the user */
+            if (this._animationsManager.has('open')) {
+                requestAnimationFrame(() => {
+                    this._triggerOpenAnimation();
+                });
+            }
+
+            /* Add class when the modal is open */
+            this._templateManager.addOpenClass();
         }
     }
 
     public getAnimationsManager(): IAnimationsManager {
         return this._animationsManager;
+    }
+
+    public getEventListenersManager(): IEventListenersManager {
+        return this._eventListenersManager;
     }
 
     public getTemplateManager(): ITemplateManager {
@@ -46,6 +59,10 @@ export default class Modal implements IModal{
 
     public setAnimationsManager(animationsManager: IAnimationsManager): void {
         this._animationsManager = animationsManager;
+    }
+
+    public setEventListenersManager(eventListenersManager: IEventListenersManager): void {
+        this._eventListenersManager = eventListenersManager;
     }
 
     public setTemplateManager(templateManager: ITemplateManager): void {

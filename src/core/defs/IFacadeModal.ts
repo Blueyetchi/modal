@@ -8,14 +8,19 @@ export default interface IFacadeModal {
     /* Facade method to retrieve the class of the modal */
     className(): string;
 
+    /* Force to close the modal */
+    close(): void;
+
     /* Facade method to retrieve the content in HTML Element format */
     htmlContent(): HTMLElement;
 
+    /* It is a hook to inform the system it can set eventListeners and register defaults animations (after the user set
+    * the configuration
+    */
+    init(): this;
+
     /* Open the modal */
     open(): void;
-
-    /* Force to close the modal */
-    close(): void;
 
     /* Facade method to custom the template of the modal */
     template(options: TemplateManagerOptionsConstructor): this;

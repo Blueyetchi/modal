@@ -14,7 +14,9 @@ export type AnimationsOptionsSetup = {
     close: AnimationFunction
 }
 
-
+/**
+ * Type of object passed in parameter of AnimationFunction
+ */
 export type DataAnimationFunction = {
     modal: HTMLElement,
 }
