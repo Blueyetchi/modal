@@ -1,0 +1,28 @@
+{
+  "name": "@blueyetchi/modal",
+  "version": "1.0.0",
+  "description": "Lightweight modal for javascript developments",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rollup -c rollup.config.js --watch",
+    "build": "rollup -c rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blueyetchi/modal.git"
+  },
+  "keywords": [],
+  "author": "Blueyetchi developer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blueyetchi/modal/issues"
+  },
+  "homepage": "https://github.com/Blueyetchi/modal#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.2"
+  }
+}
