@@ -11,4 +11,6 @@ export type TemplateManagerOptionsConstructor = {
     parentTagName?: string;
     /* Html tag of the template */
     tagName?: string;
+    /* Class of the template's wrapper */
+    wrapperClassName?: string;
 }

@@ -18,14 +18,23 @@ export default class TemplateManager implements ITemplateManager{
     /* Data injected on the content of the template */
     private _data: object = {};
 
+    /* HTML Element of the template */
+    private _htmlContent: HTMLElement;
+
     /* Html tag of the parent of template */
     private _parentTagName: string = 'body';
 
     /* Html tag of the template */
     private _tagName: string = 'div';
 
-    /* HTML Element of the template */
-    private _htmlContent: HTMLElement = this._createHtmlContent();
+
+    /* Class of the template's wrapper */
+    private _wrapperClassName: string = 'by-modal-wrapper';
+
+
+    constructor() {
+        this._htmlContent = this._createHtmlContent()
+    }
 
 //----------------------------------------------------------------------
 // Public methods
@@ -48,7 +57,6 @@ export default class TemplateManager implements ITemplateManager{
 
     public fillOptions(options: TemplateManagerOptionsConstructor): void {
         this._initializer(options);
-        this._htmlContent = this._createHtmlContent();
     }
 
 //----------------------------------------------------------------------
@@ -60,7 +68,8 @@ export default class TemplateManager implements ITemplateManager{
         content,
         data,
         parentTagName,
-        tagName
+        tagName,
+        wrapperClassName
     }: TemplateManagerOptionsConstructor = {}): void {
         if (className) {
             this._className = className;
@@ -80,6 +89,12 @@ export default class TemplateManager implements ITemplateManager{
         if (tagName) {
             this._tagName = tagName;
         }
+        if (wrapperClassName) {
+            console.log('wrapperClassName has been override');
+            this._wrapperClassName = wrapperClassName;
+        }
+
+        this._htmlContent = this._createHtmlContent();
     }
 
     private _getRandomContentTemplate(): string {
@@ -93,18 +108,30 @@ export default class TemplateManager implements ITemplateManager{
     }
 
     private _createHtmlContent(): HTMLElement {
+        let modalHtml = document.createElement('div');
+        modalHtml.classList.add(this._className);
         let wrapper = this._createHtmlWrapper();
+        let closeButton = this._createHtmlCloseButton();
 
+        modalHtml.appendChild(closeButton);
+        modalHtml.appendChild(wrapper);
+
+        return modalHtml;
+    }
+
+    private _createHtmlWrapper(): HTMLElement {
+        let wrapper = document.createElement('div');
+        wrapper.classList.add(this._wrapperClassName);
         wrapper.innerHTML = this._parsedContent();
 
         return wrapper;
     }
 
-    private _createHtmlWrapper(): HTMLElement {
-        let wrapper = document.createElement(this._tagName);
-        wrapper.classList.add(this._className);
+    private _createHtmlCloseButton(): HTMLElement {
+        let closeButton = document.createElement('div');
+        closeButton.classList.add(this._closeButtonClassName);
 
-        return wrapper;
+        return closeButton;
     }
 
     private _parsedContent(): string {

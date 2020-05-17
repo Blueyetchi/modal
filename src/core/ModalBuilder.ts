@@ -3,7 +3,12 @@ import {IModal, IModalBuilder} from "./defs";
 import {AnimationsManager} from "../modules/animations";
 import {TemplateManager} from "../modules/template";
 
-
+/**
+ * This class build the Modal given in parameter to the FacadeModal
+ * It manages default implementation of Modal :
+ * - Instance class dependencies (TemplateManager, AnimationsManager)
+ * - Setup default animations on open and on close
+ */
 export default class ModalBuilder extends Builder implements IModalBuilder {
 //----------------------------------------------------------------------
 // Properties
