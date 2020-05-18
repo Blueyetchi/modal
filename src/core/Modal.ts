@@ -23,7 +23,9 @@ export default class Modal implements IModal{
     public close(): void {
         if (this._isInjected) {
             this._isInjected = false;
-            this._triggerCloseAnimation();
+            if (this._animationsManager.has('close')) {
+                this._triggerCloseAnimation();
+            }
             this._removeFromDom();
         }
     }
