@@ -1,5 +1,11 @@
-import {FunctionAnimation} from "../typings";
+import {DataFunctionAnimation, FunctionAnimation} from "../typings";
 
+/**
+ * @interface IAnimationManager
+ *
+ * Contract for the AnimationManager class
+ *
+ */
 export default interface IAnimationManager {
     /**
      * @desc Register a new animation
@@ -10,5 +16,5 @@ export default interface IAnimationManager {
      * @desc Trigger an animation by name
      * @throws Error
      */
-    trigger(animationName: string): void;
+    trigger(animationName: string, data: DataFunctionAnimation): void;
 }

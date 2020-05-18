@@ -3,7 +3,7 @@ import {IAnimationManager} from "../../animations/defs";
 /**
  * @interface IModal
  *
- * Contract for the modal
+ * Contract for the Modal class
  *
  */
 export default interface IModal {

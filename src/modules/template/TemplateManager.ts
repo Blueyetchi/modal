@@ -2,6 +2,12 @@ import {ITemplateManager} from "./defs";
 import {OptionsTemplateManager} from "./typings";
 import {dom} from "../../helpers";
 
+/**
+ * @class TemplateManager
+ *
+ * Manages and creates all template components of the modal
+ *
+ */
 export default class TemplateManager implements ITemplateManager {
 
     /******************************************************************************* | Properties

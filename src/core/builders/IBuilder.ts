@@ -1,6 +1,8 @@
 /**
  * @interface IBuilder
  *
+ * Contract for builders classes
+ *
  * Builder design pattern : https://refactoring.guru/design-patterns/builder
  *
  */

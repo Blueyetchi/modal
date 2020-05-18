@@ -6,6 +6,8 @@ import {OptionsModal} from "../../../../modules/modal/typings";
 /**
  * @abstract Abstract class for modal builders
  *
+ * Contract for ModalBuilder class
+ *
  * We make the choice to use an abstract class instead of interface to anticipate
  * the case of different representations of modal in the future. In this way,
  * this abstract class force the shape of potentially other builders.
@@ -20,7 +22,7 @@ export default abstract class AModalBuilder implements IBuilder {
     /**
      * @desc Builder options to build the modal
      */
-    protected _builderOptions: object;
+    protected _builderOptions: OptionsModal;
 
 
     /******************************************************************************* | Public methods
