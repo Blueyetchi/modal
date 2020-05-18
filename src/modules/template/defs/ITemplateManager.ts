@@ -1,28 +1,47 @@
-import {TemplateManagerOptionsConstructor} from "../typings";
-
 export default interface ITemplateManager {
 
-    /* Add class on modal when it is opened */
-    addOpenClass(): void;
+    /**
+     * @desc Add a specific CSS class when the modal is open
+     */
+    addOpenClassToModal(): void;
 
-    /* Override default value of TemplateManager's properties */
-    fillOptions(options: TemplateManagerOptionsConstructor): void;
+    /**
+     * @desc Getter for the CSS class name of the close button
+     */
+    getCloseButtonClassName(): string;
 
-    /* Return the buttonClose in HTML Element format */
-    getHtmlButtonCLose(): HTMLElement;
+    /**
+     * @desc Getter for the HTML close button element of the modal
+     */
+    getHtmlCloseButton(): HTMLElement;
 
-    /* Return the template parsed in HTML Element format */
-    getHtmlTemplate(): HTMLElement;
+    /**
+     * @desc Getter for the HTML modal element
+     */
+    getHtmlModal(): HTMLElement;
 
-    /* Return the parent of the template with HTML Element format */
-    getHtmlParent(): HTMLElement;
+    /**
+     * @desc Getter for the HTML parent element of the modal
+     */
+    getHtmlParentModal(): HTMLElement;
 
-    /* Return the main class of the template */
-    getClassName(): string;
+    /**
+     * @desc Getter for CSS class name of the modal
+     */
+    getModalClassName(): string;
 
-    /* Return the class name of the close button */
-    getButtonCloseClassName(): string;
+    /**
+     * @desc Getter for the CSS class name added to the modal when it is opened
+     */
+    getOpenStateClassName(): string;
 
-    /* Remove class on modal when it is opened */
-    removeOpenClass(): void;
+    /**
+     * @desc Getter for the HTML wrapper element of the modal
+     */
+    getWrapperClassName(): string;
+
+    /**
+     * @desc Remove the specific CSS class name added when the modal is opened
+     */
+    removeOpenClassModal(): void;
 }

@@ -1,18 +1,25 @@
-export type TemplateManagerOptionsConstructor = {
-    /* Main CSS class of the template */
+export type OptionsTemplateManager = {
+    /* Main CSS class name of the modal */
     className?: string;
-    /* CSS class of the close button */
+
+    /* CSS class name of the close button of the modal */
     closeButtonClassName?: string;
-    /* Content of the template unparsed */
+
+    /* Unparsed content of the template */
     content?: string;
-    /* Data injected on the content of the template */
+
+    /* Data injected in the content of the template */
     data?: object;
-    /* CSS class added to the modal when it is opened */
+
+    /* CSS class name added to the modal when it is opened */
     openClassName?: string;
-    /* Html tag of the parent of template */
+
+    /* HTML tag of the parent of modal */
     parentTagName?: string;
-    /* Html tag of the template */
+
+    /* HTML tag of the template */
     tagName?: string;
-    /* CSS class of the template's wrapper */
+
+    /* CSS class name of the template's wrapper */
     wrapperClassName?: string;
 }

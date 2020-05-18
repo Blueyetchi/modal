@@ -1,1 +1,1 @@
-export {default as AnimationsManager} from './AnimationsManager';
+export {default as AnimationManager} from './AnimationManager';

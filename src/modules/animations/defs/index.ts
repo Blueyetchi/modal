@@ -1,1 +1,1 @@
-export {default as IAnimationsManager} from './IAnimationsManager';
+export {default as IAnimationManager} from './IAnimationManager';

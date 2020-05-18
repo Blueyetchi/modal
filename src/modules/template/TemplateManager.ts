@@ -1,86 +1,203 @@
 import {ITemplateManager} from "./defs";
-import {TemplateManagerOptionsConstructor} from "./typings";
+import {OptionsTemplateManager} from "./typings";
+import {dom} from "../../helpers";
 
-export default class TemplateManager implements ITemplateManager{
+export default class TemplateManager implements ITemplateManager {
 
-//----------------------------------------------------------------------
-// Properties
-//----------------------------------------------------------------------
-    /* Main class of the template */
+    /******************************************************************************* | Properties
+     * @desc Main CSS class name of the modal
+     */
     private _className: string = 'by-modal';
 
-    /* Class of the close button */
+    /**
+     * @desc CSS class name of the close button of the modal
+     */
     private _closeButtonClassName: string = 'by-modal-close-button';
 
-    /* Content of the template unparsed */
-    private _content: string = this._getRandomContentTemplate();
+    /**
+     *  @desc Unparsed content of the template
+     */
+    private _content: string;
 
-    /* Data injected on the content of the template */
+    /**
+     * @desc Data injected in the content of the template
+     */
     private _data: object = {};
 
-    /* Html button close of the template */
-    private _htmlButtonClose: HTMLElement;
+    /**
+     * @mounted
+     * @desc _htmlCloseButton
+     */
+    private _htmlCloseButton: HTMLElement;
 
-    /* HTML Element of the template */
-    private _htmlContent: HTMLElement;
+    /**
+     * @mounted
+     * @desc Finally HTML element of the modal
+     */
+    private _htmlModal: HTMLElement;
 
-    /* Html tag of the parent of template */
-    private _parentTagName: string = 'body';
+    /**
+     * @mounted
+     * @desc HTML parent element of the modal
+     */
+    private _htmlParent: HTMLElement;
 
-    /* Html tag of the template */
-    private _tagName: string = 'div';
-
-    /* Class of the template's wrapper */
-    private _wrapperClassName: string = 'by-modal-wrapper';
-
-    /* Class added to the modal when it is opened */
+    /**
+     * @desc CSS class name added to the modal when it is opened
+     */
     private _openClassName: string = 'is-open';
 
+    /**
+     * @desc HTML tag of the parent of template
+     */
+    private _parentTagName: string = 'body';
 
-    constructor() {
-        /* _htmlButtonClose method needs to be called before _htmlContent one because it use this._htmlButtonClose */
-        this._htmlButtonClose = this._createHtmlCloseButton();
-        this._htmlContent = this._createHtmlContent();
+    /**
+     * @desc HTML tag of the modal
+     */
+    private _tagName: string = 'div';
+
+    /**
+     * @desc CSS class name of the template's wrapper
+     */
+    private _wrapperClassName: string = 'by-modal-wrapper';
+
+    /******************************************************************************* | Constructor
+     * @desc Constructor of the class TemplateManager
+     */
+    constructor(options?: OptionsTemplateManager) {
+        if (options) {
+            this._initializer(options);
+        }
+        this._createMountedProperties();
     }
 
-//----------------------------------------------------------------------
-// Public methods
-//----------------------------------------------------------------------
-    public addOpenClass(): void {
-        this._htmlContent.classList.add(this._openClassName);
+    /******************************************************************************* | Public methods
+     * @desc Add a specific CSS class when the modal is open
+     */
+    public addOpenClassToModal(): void {
+        this._htmlModal.classList.add(this._openClassName);
     }
 
-    public getButtonCloseClassName(): string {
+    /**
+     * @desc Getter for the CSS class name of the close button
+     */
+    public getCloseButtonClassName(): string {
         return this._closeButtonClassName;
     }
 
-    public getClassName(): string {
+    /**
+     * @desc Getter for the HTML close button element of the modal
+     */
+    public getHtmlCloseButton(): HTMLElement {
+        return this._htmlCloseButton;
+    }
+
+    /**
+     * @desc Getter for the HTML modal element
+     */
+    public getHtmlModal(): HTMLElement {
+        return this._htmlModal;
+    }
+
+    /**
+     * @desc Getter for the HTML parent element of the modal
+     */
+    public getHtmlParentModal(): HTMLElement {
+        return this._htmlParent;
+    }
+
+    /**
+     * @desc Getter for CSS class name of the modal
+     */
+    public getModalClassName(): string {
         return this._className;
     }
 
-    public getHtmlButtonCLose(): HTMLElement {
-        return this._htmlButtonClose;
+    /**
+     * @desc Getter for the CSS class name added to the modal when it is opened
+     */
+    public getOpenStateClassName(): string {
+        return this._openClassName;
     }
 
-    public getHtmlTemplate(): HTMLElement {
-        return this._htmlContent;
+    /**
+     * @desc Getter for the HTML wrapper element of the modal
+     */
+    public getWrapperClassName(): string {
+        return this._wrapperClassName;
     }
 
-    public getHtmlParent(): HTMLElement {
+    /**
+     * @desc Remove the specific CSS class name added when the modal is opened
+     */
+    public removeOpenClassModal(): void {
+        this._htmlModal.classList.remove(this._openClassName);
+    }
+
+    /******************************************************************************* | Private methods
+     *
+     */
+
+    /**
+     * @desc Create HTML close button element of the modal
+     */
+    private _createHtmlCloseButton(): HTMLElement {
+        const modal = document.createElement('div');
+        modal.className = this._closeButtonClassName;
+
+        return modal;
+    }
+
+    /**
+     * @desc Create HTML modal element
+     */
+    private _createHtmlModal(): HTMLElement {
+        /* Build the shell of the modal */
+        const modal = document.createElement(this._tagName);
+        modal.className = this._className;
+
+        /* Insert the closeButton & wrapper in the shell */
+        const wrapper = this._createHtmlWrapperModal();
+        modal.appendChild(this._htmlCloseButton).appendChild(wrapper);
+
+        return modal;
+    }
+
+    /**
+     * @desc Create HTML wrapper element of the modal
+     */
+    private _createHtmlWrapperModal(): HTMLElement {
+        const wrapper = document.createElement('div');
+        wrapper.className = this._wrapperClassName;
+        wrapper.innerHTML = dom.parsedContent(this._content, this._data);
+
+        return wrapper;
+    }
+
+    /**
+     * @desc Create HTML parent element of the modal
+     */
+    private _createHtmlParentModal(): HTMLElement {
         return document.querySelector(this._parentTagName);
     }
 
-    public fillOptions(options: TemplateManagerOptionsConstructor): void {
-        this._initializer(options);
+    /**
+     * @desc Create all mounted properties like HTML elements
+     *
+     * All inner methods need to be called in a specific order because of dependencies
+     *
+     */
+    private _createMountedProperties(): void {
+        this._htmlParent = this._createHtmlParentModal();
+        this._htmlCloseButton = this._createHtmlCloseButton();
+        /* This method needs to be call at the end because it depends of properties beyond */
+        this._htmlModal = this._createHtmlModal();
     }
 
-    public removeOpenClass(): void {
-        this._htmlContent.classList.remove(this._openClassName);
-    }
-
-//----------------------------------------------------------------------
-// Private methods
-//----------------------------------------------------------------------
+    /**
+     * @desc Initialize all properties according to the options values
+     */
     private _initializer({
         className,
         closeButtonClassName,
@@ -90,75 +207,14 @@ export default class TemplateManager implements ITemplateManager{
         parentTagName,
         tagName,
         wrapperClassName
-    }: TemplateManagerOptionsConstructor = {}): void {
-        if (className) {
-            this._className = className;
-        }
-        if (closeButtonClassName) {
-            this._closeButtonClassName = closeButtonClassName;
-        }
-        if (content) {
-            this._content = content;
-        }
-        if (data) {
-            this._data = data;
-        }
-        if (openClassName) {
-            this._openClassName = openClassName;
-        }
-        if (parentTagName) {
-            this._parentTagName = parentTagName;
-        }
-        if (tagName) {
-            this._tagName = tagName;
-        }
-        if (wrapperClassName) {
-            this._wrapperClassName = wrapperClassName;
-        }
-
-        this._htmlButtonClose = this._createHtmlCloseButton();
-        this._htmlContent = this._createHtmlContent();
-    }
-
-    private _getRandomContentTemplate(): string {
-        const contents: string[] = [
-            '<div>Keep moving forward !</div>',
-            '<div>If not, you will become a great developer !</div>',
-            '<div>This modal seems work great !</div>'
-        ];
-
-        return contents[Math.floor(Math.random() * contents.length)];
-    }
-
-    private _createHtmlContent(): HTMLElement {
-        let modalHtml = document.createElement('div');
-        modalHtml.classList.add(this._className);
-        let wrapper = this._createHtmlWrapper();
-
-        modalHtml.appendChild(this._htmlButtonClose);
-        modalHtml.appendChild(wrapper);
-
-        return modalHtml;
-    }
-
-    private _createHtmlWrapper(): HTMLElement {
-        let wrapper = document.createElement('div');
-        wrapper.classList.add(this._wrapperClassName);
-        wrapper.innerHTML = this._parsedContent();
-
-        return wrapper;
-    }
-
-    private _createHtmlCloseButton(): HTMLElement {
-        let closeButton = document.createElement('div');
-        closeButton.classList.add(this._closeButtonClassName);
-
-        return closeButton;
-    }
-
-    private _parsedContent(): string {
-        const data = this._data;
-
-        return eval('`' + this._content + '`');
+    }: OptionsTemplateManager) {
+        if (className) this._className = className;
+        if (closeButtonClassName) this._closeButtonClassName = closeButtonClassName;
+        if (content) this._content = content;
+        if (data) this._data = data;
+        if (openClassName) this._openClassName = openClassName;
+        if (parentTagName) this._parentTagName = parentTagName;
+        if (tagName) this._tagName = tagName;
+        if (wrapperClassName) this._wrapperClassName = wrapperClassName;
     }
 }

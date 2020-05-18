@@ -1,22 +1,5 @@
-export type AnimationsCollection = {
-    [key: string]: AnimationFunction;
+export type OptionsAnimationManager = {
+    [key: string]: FunctionAnimation;
 }
 
-export type AnimationFunction = (data: DataAnimationFunction) => void;
-
-/**
- * Object passed by the user when he wants to override default animations
- *
- * @example byModal.animations(options: AnimationsOptionsSetup);
- */
-export type AnimationsOptionsSetup = {
-    open: AnimationFunction,
-    close: AnimationFunction
-}
-
-/**
- * Type of object passed in parameter of AnimationFunction
- */
-export type DataAnimationFunction = {
-    modal: HTMLElement,
-}
+export type FunctionAnimation = () => void;
