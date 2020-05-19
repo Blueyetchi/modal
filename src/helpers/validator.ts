@@ -1,5 +1,6 @@
-import {error} from "./index";
+
 import constants from "../constants";
+import error from "./error";
 
 /**
  * @desc Validator for variable of type function

@@ -1,0 +1,1 @@
+export {default as IFacadeModal} from './IFacadeModal';
