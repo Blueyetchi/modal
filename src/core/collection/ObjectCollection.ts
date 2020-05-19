@@ -1,4 +1,3 @@
-import {AObjectCollection} from "./defs";
 import {ACollection} from "./base";
 import {error} from "../../helpers";
 import constants from "../../constants";
@@ -8,7 +7,7 @@ import constants from "../../constants";
  */
 export default class ObjectCollection<OBJECT extends Object> extends ACollection<OBJECT>
 {
-    /**
+    /******************************************************************************* | Public methods
      * @desc Add item into collection
      *
      * Avoid to push twice the same Object in the collection

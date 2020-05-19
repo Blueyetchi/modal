@@ -22,23 +22,29 @@ export default abstract class AModalBuilder implements IBuilder {
     /**
      * @desc Builder options to build the modal
      */
-    protected _builderOptions: OptionsModal;
+    protected _builderOptions: OptionsModal | {};
 
+    /******************************************************************************* | Abstract methods
+     * @desc Build animation manager of the modal
+     */
+    protected abstract buildAnimationManager(): void;
 
-    /******************************************************************************* | Public methods
+    /**
+     * @desc Build event listener manager of the modal
+     */
+    protected abstract buildEventListenerManager(): void
+
+    /**
+     * @desc Build template manager of the modal
+     */
+    protected abstract buildTemplateManager(): void;
+
+    /**
      * @desc Setter for _builderOptions property
      */
     public abstract setBuilderOptions(options: OptionsModal): void;
 
-    /**
-     * @desc Reset the property _modal & _builderOptions
-     */
-    public resetImplicitClassInstance(): void {
-        this._modal = new Modal();
-        this._builderOptions = {};
-    }
-
-    /**
+    /******************************************************************************* | Public methods
      * @desc Trigger the build process and return the construct implicit class
      *
      * In this case, we could have delegate the build process to another method
@@ -53,18 +59,11 @@ export default abstract class AModalBuilder implements IBuilder {
         return this._modal;
     }
 
-    /******************************************************************************* | Protected methods
-     * @desc Build template manager of the modal
-     */
-    protected abstract buildTemplateManager(): void;
-
     /**
-     * @desc Build animation manager of the modal
+     * @desc Reset the property _modal & _builderOptions
      */
-    protected abstract buildAnimationManager(): void;
-
-    /**
-     * @desc Build event listener manager of the modal
-     */
-    protected abstract buildEventListenerManager(): void
+    public resetImplicitClassInstance(): void {
+        this._modal = new Modal();
+        this._builderOptions = {};
+    }
 }

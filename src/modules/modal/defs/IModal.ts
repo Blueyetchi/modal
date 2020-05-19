@@ -1,4 +1,6 @@
 import {IAnimationManager} from "../../animations/defs";
+import {IEventManager} from "../../events/defs";
+import {ITemplateManager} from "../../template/defs";
 
 /**
  * @interface IModal
@@ -16,17 +18,17 @@ export default interface IModal {
     /**
      * @desc Getter for animation manager property
      */
-    getAnimationManager(): object;
+    getAnimationManager(): IAnimationManager;
 
     /**
-     * @desc Getter for event listener manager property
+     * @desc Getter for event manager property
      */
-    getEventListenerManager(): object;
+    getEventManager(): IEventManager;
 
     /**
      * @desc Getter for template manager property
      */
-    getTemplateManager(): object;
+    getTemplateManager(): ITemplateManager;
 
     /**
      * @desc Open the modal
@@ -39,12 +41,12 @@ export default interface IModal {
     setAnimationManager(animationsManager: IAnimationManager): void;
 
     /**
-     * @desc Setter for event listener property
+     * @desc Setter for event property
      */
-    setEventListenerManager(): void;
+    setEventManager(eventManager: IEventManager): void;
 
     /**
      * @desc Setter for template manager property
      */
-    setTemplateManager(templateManager: object): void;
+    setTemplateManager(templateManager: ITemplateManager): void;
 }

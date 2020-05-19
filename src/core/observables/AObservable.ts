@@ -1,4 +1,4 @@
-import {IObserver} from "./defs";
+import {IObservable, IObserver} from "./defs";
 import {GenericObject} from "../typings";
 import {error} from "../../helpers";
 import constants from "../../constants";
@@ -12,7 +12,7 @@ import {ObjectCollection} from "../collection";
  * Concept of generic class here : https://www.typescriptlang.org/docs/handbook/generics.html
  *
  */
-export default abstract class AObservable {
+export default abstract class AObservable implements IObservable{
     /******************************************************************************* | Properties
      * @desc Collection of observers
      */

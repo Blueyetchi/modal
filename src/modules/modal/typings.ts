@@ -1,7 +1,7 @@
-import {AnimationsCollection} from "../animations/typings";
 import {OptionsTemplateManager} from "../template/typings";
+import {AnimationsList} from "../animations/typings";
 
 export type OptionsModal = {
-    animations: AnimationsCollection;
+    animations: AnimationsList;
     template: OptionsTemplateManager;
 }
