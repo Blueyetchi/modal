@@ -1,8 +1,8 @@
 import {IAnimationManager} from "./defs";
-import {AnimationsList, DataFunctionAnimation, FunctionAnimation} from "./typings";
+import {AnimationsList, DataFunctionAnimation, FunctionAnimation, OptionsAnimationManager} from "./typings";
 import {IObserver} from "../../core/observables/defs";
 import {EventData} from "../events/typings";
-import {error} from "../../helpers";
+import {error, validator} from "../../helpers";
 import constants from "../../constants";
 
 /**
@@ -30,6 +30,7 @@ export default class AnimationManager implements IAnimationManager, IObserver {
      * @throws
      */
     public register(animationName: string, animation: FunctionAnimation): void {
+        validator.isFunctionOrThrowError(animation);
         if (this._animations.hasOwnProperty(animationName)) {
             error.throwError(
                 constants.error.ACTION_NAME.ANIMATION_REGISTER,

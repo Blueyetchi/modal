@@ -57,6 +57,7 @@ export default class Modal implements IModal {
      * @desc Open the modal
      */
     public open(): void {
+
     }
 
     /**

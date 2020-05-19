@@ -19,10 +19,11 @@ export default abstract class AModalBuilder implements IBuilder {
      * @desc Implicit class modal instance
      */
     protected _modal: IModal;
+
     /**
      * @desc Builder options to build the modal
      */
-    protected _builderOptions: OptionsModal | {};
+    protected _builderOptions: OptionsModal;
 
     /******************************************************************************* | Abstract methods
      * @desc Build animation manager of the modal
@@ -30,9 +31,9 @@ export default abstract class AModalBuilder implements IBuilder {
     protected abstract buildAnimationManager(): void;
 
     /**
-     * @desc Build event listener manager of the modal
+     * @desc Build event manager of the modal
      */
-    protected abstract buildEventListenerManager(): void
+    protected abstract buildEventManager(): void
 
     /**
      * @desc Build template manager of the modal
@@ -42,7 +43,7 @@ export default abstract class AModalBuilder implements IBuilder {
     /**
      * @desc Setter for _builderOptions property
      */
-    public abstract setBuilderOptions(options: OptionsModal): void;
+    public abstract setBuilderOptions(options?: OptionsModal): void;
 
     /******************************************************************************* | Public methods
      * @desc Trigger the build process and return the construct implicit class
@@ -54,7 +55,7 @@ export default abstract class AModalBuilder implements IBuilder {
     public build(): IModal {
         this.buildAnimationManager();
         this.buildTemplateManager();
-        this.buildEventListenerManager();
+        this.buildEventManager();
 
         return this._modal;
     }

@@ -12,5 +12,11 @@ export const ACTION_NAME = {
 
     /* Animation manager */
     ANIMATION_REGISTER: 'Register animation',
-    ANIMATION_TRIGGER: 'Trigger animation'
+    ANIMATION_TRIGGER: 'Trigger animation',
+
+    /* Validator */
+    VALIDATOR_FUNCTION: 'Validate a variable of type function',
+    VALIDATOR_STRING: 'Validate a variable of type string',
+    VALIDATOR_OBJECT: 'Validate a variable of type object',
+    VALIDATOR_INTEGER: 'Validate a variable of type integer',
 };
