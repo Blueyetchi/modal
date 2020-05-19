@@ -1,4 +1,5 @@
-import {EventData} from "../typings";
+import {EventData} from "../../../modules/events/typings";
+import {GenericObject} from "../../typings";
 
 /**
  * @interface IObserver
@@ -12,5 +13,5 @@ export default interface IObserver {
     /**
      * @desc Receive the notification of linked observable
      */
-    onNotified(eventType: EventData): void;
+    onNotified(eventType: string, data: GenericObject): void;
 }

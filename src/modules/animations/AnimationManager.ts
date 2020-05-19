@@ -1,5 +1,9 @@
 import {IAnimationManager} from "./defs";
-import {AnimationsCollection, DataFunctionAnimation, FunctionAnimation} from "./typings";
+import {AnimationsList, DataFunctionAnimation, FunctionAnimation} from "./typings";
+import {IObserver} from "../../core/observables/defs";
+import {EventData} from "../events/typings";
+import {error} from "../../helpers";
+import constants from "../../constants";
 
 /**
  * @class AnimationManager
@@ -7,30 +11,45 @@ import {AnimationsCollection, DataFunctionAnimation, FunctionAnimation} from "./
  * Manages all animations of the modal
  *
  */
-export default class AnimationManager implements IAnimationManager {
+export default class AnimationManager implements IAnimationManager, IObserver {
 
     /******************************************************************************* | Properties
      * @desc Collection of all animations registered
      */
-    private _animationsCollection: AnimationsCollection = {};
+    private _animations: AnimationsList;
+
+    /******************************************************************************* | Public methods
+     * @desc Receive the notification of observable
+     */
+    public onNotified(eventType: string, data: EventData): void {
+        console.log(`A notification of type ${eventType} has been sent with data :`, data);
+    }
 
     /**
      * @desc Register a new animation
+     * @throws
      */
-    register(animationName: string, animation: FunctionAnimation): void {
-        this._animationsCollection[animationName] = animation;
+    public register(animationName: string, animation: FunctionAnimation): void {
+        if (this._animations.hasOwnProperty(animationName)) {
+            error.throwError(
+                constants.error.ACTION_NAME.ANIMATION_REGISTER,
+                `Animation ${animationName} is already registered`
+            );
+        }
+
+        this._animations[animationName] = animation;
     }
 
     /**
      * @desc Trigger an animation by name
      * @throws Error
      */
-    trigger(animationName: string, data: DataFunctionAnimation): void {
-        if (this._animationsCollection.hasOwnProperty(animationName)) {
-            this._animationsCollection[animationName](data);
-        } else {
-            throw new Error(`The animation  "${animationName}" can't be triggered because it doesn't exist.`);
+    public trigger(animationName: string, data: DataFunctionAnimation): void {
+        if (!this._animations.hasOwnProperty(animationName)) {
+            error.throwError(
+                constants.error.ACTION_NAME.ANIMATION_TRIGGER,
+                `Animation ${animationName} is not registered`
+            );
         }
     }
-
 }

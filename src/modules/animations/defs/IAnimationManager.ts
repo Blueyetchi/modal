@@ -9,6 +9,7 @@ import {DataFunctionAnimation, FunctionAnimation} from "../typings";
 export default interface IAnimationManager {
     /**
      * @desc Register a new animation
+     * @throws Error
      */
     register(animationName: string, animation: FunctionAnimation): void;
 

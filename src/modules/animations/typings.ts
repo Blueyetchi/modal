@@ -1,4 +1,4 @@
-export type AnimationsCollection = {
+export type AnimationsList = {
     [key: string]: FunctionAnimation;
 }
 
