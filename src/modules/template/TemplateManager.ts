@@ -45,6 +45,12 @@ export default class TemplateManager implements ITemplateManager {
 
     /**
      * @mounted
+     * @desc HTML element of modal's overlay
+     */
+    private _htmlOverlay: HTMLElement;
+
+    /**
+     * @mounted
      * @desc HTML parent element of the modal
      */
     private _htmlParent: HTMLElement;
@@ -53,6 +59,11 @@ export default class TemplateManager implements ITemplateManager {
      * @desc CSS class name added to the modal when it is opened
      */
     private _openClassName: string = 'is-open';
+
+    /**
+     * @desc CSS class of modal'soverlay
+     */
+    private _overlayClassName: string = 'by-overlay-modal';
 
     /**
      * @desc HTML tag of the parent of template
@@ -84,6 +95,7 @@ export default class TemplateManager implements ITemplateManager {
      */
     public addOpenClassToModal(): void {
         this._htmlModal.classList.add(this._openClassName);
+        this._htmlOverlay.classList.add(this._openClassName);
     }
 
     /**
@@ -105,6 +117,13 @@ export default class TemplateManager implements ITemplateManager {
      */
     public getHtmlModal(): HTMLElement {
         return this._htmlModal;
+    }
+
+    /**
+     * @desc Getter for the HTML overlay element of the modal
+     */
+    public getHtmlOverlay(): HTMLElement {
+        return this._htmlOverlay;
     }
 
     /**
@@ -140,6 +159,7 @@ export default class TemplateManager implements ITemplateManager {
      */
     public removeOpenClassModal(): void {
         this._htmlModal.classList.remove(this._openClassName);
+        this._htmlOverlay.classList.remove(this._openClassName);
     }
 
     /******************************************************************************* | Private methods
@@ -184,6 +204,16 @@ export default class TemplateManager implements ITemplateManager {
     }
 
     /**
+     * @desc Create HTML overlay element of the modal
+     */
+    private _createHtmlOverlay(): HTMLElement {
+        const overlay = document.createElement('div');
+        overlay.className = this._overlayClassName;
+
+        return overlay;
+    }
+
+    /**
      * @desc Create HTML parent element of the modal
      */
     private _createHtmlParentModal(): HTMLElement {
@@ -199,6 +229,7 @@ export default class TemplateManager implements ITemplateManager {
     private _createMountedProperties(): void {
         this._htmlParent = this._createHtmlParentModal();
         this._htmlCloseButton = this._createHtmlCloseButton();
+        this._htmlOverlay = this._createHtmlOverlay();
         /* This method needs to be call at the end because it depends of properties beyond */
         this._htmlModal = this._createHtmlModal();
     }
@@ -212,6 +243,7 @@ export default class TemplateManager implements ITemplateManager {
         content,
         data,
         openClassName,
+        overlayClassName,
         parentTagName,
         tagName,
         wrapperClassName
@@ -221,6 +253,7 @@ export default class TemplateManager implements ITemplateManager {
         if (content) this._content = content;
         if (data) this._data = data;
         if (openClassName) this._openClassName = openClassName;
+        if (overlayClassName) this._overlayClassName = overlayClassName;
         if (parentTagName) this._parentTagName = parentTagName;
         if (tagName) this._tagName = tagName;
         if (wrapperClassName) this._wrapperClassName = wrapperClassName;

@@ -66,6 +66,7 @@ export default class Modal implements IModal {
      */
     public initEvents(): void {
         this._onCLickCloseButton();
+        this._onClickOverlay();
     }
 
     /**
@@ -108,6 +109,7 @@ export default class Modal implements IModal {
     private _injectInDom(): void {
         const parent = this._templateManager.getHtmlParentModal();
         parent.appendChild(this._templateManager.getHtmlModal());
+        parent.appendChild(this._templateManager.getHtmlOverlay());
     }
 
     /**
@@ -116,6 +118,7 @@ export default class Modal implements IModal {
     private _removeFromDom(): void {
         const parent = this._templateManager.getHtmlParentModal();
         parent.removeChild(this._templateManager.getHtmlModal());
+        parent.removeChild(this._templateManager.getHtmlOverlay());
     }
 
     /**
@@ -124,6 +127,13 @@ export default class Modal implements IModal {
     private _onCLickCloseButton(): void {
         const closeButton = this._templateManager.getHtmlCloseButton();
         closeButton.addEventListener('click', () => {
+            this.close();
+        })
+    }
+
+    private _onClickOverlay(): void {
+        const overlay = this._templateManager.getHtmlOverlay();
+        overlay.addEventListener('click', () => {
             this.close();
         })
     }

@@ -42,12 +42,6 @@ export default class AnimationManager implements IAnimationManager {
      */
     public register(animationName: string, animation: FunctionAnimation): void {
         validator.isFunctionOrThrowError(animation);
-        if (this._animations.hasOwnProperty(animationName)) {
-            error.throwError(
-                constants.error.ACTION_NAME.ANIMATION_REGISTER,
-                `Animation ${animationName} is already registered`
-            );
-        }
 
         this._animations[animationName] = animation;
     }

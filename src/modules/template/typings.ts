@@ -14,6 +14,9 @@ export type OptionsTemplateManager = {
     /* CSS class name added to the modal when it is opened */
     openClassName?: string;
 
+    /* CSS class of modal'soverlay */
+    overlayClassName?: string;
+
     /* HTML tag of the parent of modal */
     parentTagName?: string;
 

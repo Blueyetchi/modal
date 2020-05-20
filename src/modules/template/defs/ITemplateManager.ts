@@ -27,6 +27,11 @@ export default interface ITemplateManager {
     getHtmlModal(): HTMLElement;
 
     /**
+     * @desc Getter for the HTML overlay element of the modal
+     */
+    getHtmlOverlay(): HTMLElement;
+
+    /**
      * @desc Getter for the HTML parent element of the modal
      */
     getHtmlParentModal(): HTMLElement;
