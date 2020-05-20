@@ -1,10 +1,8 @@
 import {IAnimationManager} from "./defs";
-import {AnimationsList, DataFunctionAnimation, FunctionAnimation, OptionsAnimationManager} from "./typings";
-import {IObserver} from "../../core/observables/defs";
+import {AnimationsList, DataFunctionAnimation, FunctionAnimation} from "./typings";
 import {EventData} from "../events/typings";
 import {error, validator} from "../../helpers";
 import constants from "../../constants";
-import {GenericObject} from "../../core/typings";
 
 /**
  * @class AnimationManager

@@ -6,7 +6,8 @@ import {DataFunctionAnimation} from "../modules/animations/typings";
  */
 function createDataFunctionAnimation (modal: IModal): DataFunctionAnimation {
     return {
-        modal: modal.getTemplateManager().getHtmlModal()
+        modal: modal.getTemplateManager().getHtmlModal(),
+        overlay: modal.getTemplateManager().getHtmlModal()
     }
 }
 
