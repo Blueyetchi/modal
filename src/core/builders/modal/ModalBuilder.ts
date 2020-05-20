@@ -28,7 +28,6 @@ export default class ModalBuilder extends AModalBuilder {
     protected buildAnimationManager(): void {
         const animationManager: IAnimationManager = new AnimationManager();
         const optionsAnimationManager = this._builderOptions.animations;
-
         if (optionsAnimationManager && Object.keys(optionsAnimationManager).length > 0) {
             for (const animationName in optionsAnimationManager) {
                 if (optionsAnimationManager.hasOwnProperty(animationName)) {

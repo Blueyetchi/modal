@@ -15,10 +15,6 @@ export default class FacadeModal implements IFacadeModal {
         this._modalBuilder = modalBuilder;
     }
 
-    public close(): void {
-        this._modal.close();
-    }
-
     public init(options?: OptionsModal): IModal {
         const optionsModal = options ? options : {};
         this._modalBuilder.resetImplicitClassInstance();
@@ -28,7 +24,4 @@ export default class FacadeModal implements IFacadeModal {
         return this._modal
     }
 
-    public open(): void {
-        this._modal.open();
-    }
 }

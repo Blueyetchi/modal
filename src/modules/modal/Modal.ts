@@ -80,4 +80,12 @@ export default class Modal implements IModal {
     public setTemplateManager(templateManager: ITemplateManager): void {
         this._templateManager = templateManager;
     }
+
+    private _injectInDom(): void {
+
+    }
+
+    private _removeFromDom(): void {
+
+    }
 }

@@ -16,7 +16,15 @@ export default class AnimationManager implements IAnimationManager, IObserver {
     /******************************************************************************* | Properties
      * @desc Collection of all animations registered
      */
-    private _animations: AnimationsList;
+    private _animations: AnimationsList = {};
+
+    constructor() {
+        for(const animationName in constants.animation.NAME) {
+            if (constants.animation.NAME.hasOwnProperty(animationName)) {
+                this.register(constants.animation.NAME[animationName], function (options) {});
+            }
+        }
+    }
 
     /******************************************************************************* | Public methods
      * @desc Receive the notification of observable
@@ -52,5 +60,7 @@ export default class AnimationManager implements IAnimationManager, IObserver {
                 `Animation ${animationName} is not registered`
             );
         }
+
+        this._animations[animationName](data);
     }
 }

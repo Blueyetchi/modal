@@ -9,18 +9,10 @@ import {IModal} from "../../../../modules/modal/defs";
  */
 export default interface IFacadeModal {
 
-    /**
-     * @desc Close the modal
-     */
-    close(): void;
 
     /**
      * @desc Init the modal
      */
     init(options?: OptionsModal): IModal;
 
-    /**
-     * @desc Open the modal
-     */
-    open(): void;
 }
