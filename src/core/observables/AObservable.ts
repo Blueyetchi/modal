@@ -37,15 +37,17 @@ export default abstract class AObservable implements IObservable{
      * @desc Subscribe an observer to a specific event type
      * @throws Error
      */
-    public subscribe(eventType: string, observer: IObserver): void {
-        try {
-            this._observersCollection.push(eventType, observer);
-        } catch (e) {
-            error.throwError(
-                constants.error.ACTION_NAME.OBSERVABLE_SUBSCRIBE,
-                `${e.message}`
-            );
-        }
+    public subscribe(eventType: string, observers: IObserver[]): void {
+        observers.forEach(observer => {
+            try {
+                this._observersCollection.push(eventType, observer);
+            } catch (e) {
+                error.throwError(
+                    constants.error.ACTION_NAME.OBSERVABLE_SUBSCRIBE,
+                    `${e.message}`
+                );
+            }
+        })
     }
 
     /**

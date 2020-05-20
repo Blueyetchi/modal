@@ -41,6 +41,11 @@ export default abstract class AModalBuilder implements IBuilder {
     protected abstract buildTemplateManager(): void;
 
     /**
+     * @desc Subscribe observers to observable
+     */
+    protected abstract initObservable(): void;
+
+    /**
      * @desc Setter for _builderOptions property
      */
     public abstract setBuilderOptions(options?: OptionsModal): void;
@@ -56,6 +61,7 @@ export default abstract class AModalBuilder implements IBuilder {
         this.buildAnimationManager();
         this.buildTemplateManager();
         this.buildEventManager();
+        this.initObservable();
 
         return this._modal;
     }

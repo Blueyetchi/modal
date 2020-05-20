@@ -31,6 +31,11 @@ export default interface IModal {
     getTemplateManager(): ITemplateManager;
 
     /**
+     * @desc Init events of the modal (onCLick close button for instance)
+     */
+    initEvents(): void;
+
+    /**
      * @desc Open the modal
      */
     open(): void;

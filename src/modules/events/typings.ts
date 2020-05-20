@@ -1,4 +1,5 @@
-export type EventData = {
-    type: string;
+import {IModal} from "../modal/defs";
 
+export type EventData = {
+    emitter: IModal
 }

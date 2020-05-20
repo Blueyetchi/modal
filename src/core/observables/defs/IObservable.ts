@@ -21,7 +21,7 @@ export default interface IObservable {
      * @desc Subscribe an observer to a specific event type
      * @throws Error
      */
-    subscribe(eventType: string, observer: IObserver): void;
+    subscribe(eventType: string, observers: IObserver[]): void;
 
     /**
      * @desc Unsubscribe an observer to a specific event type

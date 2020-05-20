@@ -2,6 +2,8 @@ import {IModal} from "./defs";
 import {IAnimationManager} from "../animations/defs";
 import {ITemplateManager} from "../template/defs";
 import {IEventManager} from "../events/defs";
+import constants from "../../constants";
+import {animation, event} from "../../helpers";
 
 /**
  * @class Modal
@@ -30,6 +32,12 @@ export default class Modal implements IModal {
      * @desc Close the modal
      */
     public close(): void {
+        this._templateManager.removeOpenClassModal();
+        this._animationManager.trigger(
+            constants.animation.NAME.CLOSE,
+            animation.createDataFunctionAnimation(this)
+        );
+        this._removeFromDom();
     }
 
     /**
@@ -54,10 +62,23 @@ export default class Modal implements IModal {
     }
 
     /**
+     * @desc Init events of the modal (onCLick close button for instance)
+     */
+    public initEvents(): void {
+        this._onCLickCloseButton();
+    }
+
+    /**
      * @desc Open the modal
      */
     public open(): void {
-
+        this.initEvents();
+        this._templateManager.addOpenClassToModal();
+        this._animationManager.trigger(
+            constants.animation.NAME.OPEN,
+            animation.createDataFunctionAnimation(this)
+        );
+        this._injectInDom();
     }
 
     /**
@@ -81,11 +102,29 @@ export default class Modal implements IModal {
         this._templateManager = templateManager;
     }
 
+    /**
+     * @desc Inject the modal in DOM
+     */
     private _injectInDom(): void {
-
+        const parent = this._templateManager.getHtmlParentModal();
+        parent.appendChild(this._templateManager.getHtmlModal());
     }
 
+    /**
+     * @desc Remove the modal from DOM
+     */
     private _removeFromDom(): void {
+        const parent = this._templateManager.getHtmlParentModal();
+        parent.removeChild(this._templateManager.getHtmlModal());
+    }
 
+    /**
+     * @desc Init the event on click close button
+     */
+    private _onCLickCloseButton(): void {
+        const closeButton = this._templateManager.getHtmlCloseButton();
+        closeButton.addEventListener('click', () => {
+            this.close();
+        })
     }
 }

@@ -1,6 +1,7 @@
 import {ITemplateManager} from "./defs";
 import {OptionsTemplateManager} from "./typings";
 import {dom} from "../../helpers";
+import {EventData} from "../events/typings";
 
 /**
  * @class TemplateManager
@@ -165,7 +166,8 @@ export default class TemplateManager implements ITemplateManager {
 
         /* Insert the closeButton & wrapper in the shell */
         const wrapper = this._createHtmlWrapperModal();
-        modal.appendChild(this._htmlCloseButton).appendChild(wrapper);
+        modal.appendChild(this._htmlCloseButton);
+        modal.appendChild(wrapper);
 
         return modal;
     }

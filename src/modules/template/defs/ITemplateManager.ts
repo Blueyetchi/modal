@@ -1,3 +1,9 @@
+/**
+ * @interface ITemplateManager
+ *
+ * Contract for TemplateManager class
+ *
+ */
 export default interface ITemplateManager {
 
     /**

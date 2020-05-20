@@ -1,6 +1,6 @@
 import {GenericObject} from "../core/typings";
 
-export const NAME: GenericObject = {
+export const NAME = {
     CLOSE: 'close',
     OPEN: 'open',
 };
